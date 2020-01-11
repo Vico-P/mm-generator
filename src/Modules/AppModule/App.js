@@ -1,24 +1,28 @@
 import React from 'react';
-import logo from './logo.svg';
+import { Link } from 'react-router-dom';
 import './App.css';
 
 function App() {
+  const clientId = '124f7cd261a8d9a';
+
+  /**
+   * @todo: Change the second link depending on Vico's page name
+   */
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      <h1>Welcome to MM-Generator</h1>
+      <div className="btns-container">
+        <div className="flex-btn">
+          <a
+            className="btn imgur-login-btn"
+            href={`https://api.imgur.com/oauth2/authorize?response_type=token&client_id=${clientId}`}>
+            Connect with Imgur
+          </a>
+        </div>
+        <div className="flex-btn">
+          <Link to="/create-post">Acces to the app without imgur</Link>
+        </div>
+      </div>
     </div>
   );
 }
