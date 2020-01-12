@@ -8,18 +8,32 @@
     overflow: auto;
 }
 
-.img-block{
+.img-block, .album-block {
+    cursor: pointer;
     padding: 5px;
     flex: 1;
 }
 
+.img-block:hover, .album-block:hover, .img-block.selected {
+    color: var(--main-color);
+}
+
+.img-block:hover img {
+    box-shadow: var(--btn-shadow);
+}
+
 .img-block img{
+    border: 2px solid transparent;
     max-width: 250px;
     max-height: 250px;
 }
 
+.img-block.selected img{
+    border: 2px solid var(--main-color);
+}
+
 .btn-container {
-    margin-top: 2vh;
+    margin: 2vh 0;
 }
 
 .mr-2 {

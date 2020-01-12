@@ -6,8 +6,8 @@ import AlbumBlock from './AlbumBlock';
 
 function SelectionBlock(props) {
   // store variables
-  const token = 'Bearer 2b5da8650f2a98b393bdbabb5f5303cad6b9be86';
-  // const token = useSelector(state => state.user.token);
+  // const token = '';
+  const token = useSelector(state => state.user.token);
   // state variables
   const [imgList, setImgList] = useState([]);
 
@@ -20,50 +20,49 @@ function SelectionBlock(props) {
   }, [props.mode])
 
   function getUserImages() {
-    // fetch('https://api.imgur.com/3/account/me/images', {
-    //   mode: 'cors',
-    //   headers: {
-    //     Authorization: token,
-    //   }
-    // }).then(oPromise => {
-    //   console.log(oPromise);
-    //   if (oPromise.ok) {
-    //     return oPromise.json();
-    //   }
-    //   throw new Error(oPromise);
-    // }).then(oData => {
-    //   const imgs = oData.data.map(data => {
-    //     const { link, name } = data;
-    //     return {
-    //       link,
-    //       name
-    //     }
-    //   });
-    //   setImgList(imgs);
-    // }).catch(e => {
-    //   console.error(e.message || e);
-    // })
-    setImgList(ImgDatas);
+    fetch('https://api.imgur.com/3/account/me/images', {
+      mode: 'cors',
+      headers: {
+        Authorization: token,
+      }
+    }).then(oPromise => {
+      if (oPromise.ok) {
+        return oPromise.json();
+      }
+      throw new Error(oPromise);
+    }).then(oData => {
+      const imgs = oData.data.map(data => {
+        const { id, link, name } = data;
+        return {
+          link,
+          name,
+          id,
+        }
+      });
+      setImgList(imgs);
+    }).catch(e => {
+      console.error(e.message || e);
+    });
+    // setImgList(ImgDatas);
   }
 
   function getUserAlbums() {
-    // fetch('https://api.imgur.com/3/account/me/albums/', {
-    //   mode: 'cors',
-    //   headers: {
-    //     Authorization: token,
-    //   }
-    // }).then(oPromise => {
-    //   console.log(oPromise);
-    //   if (oPromise.ok) {
-    //     return oPromise.json();
-    //   }
-    //   throw new Error(oPromise);
-    // }).then(oData => {
-    //   console.log(oData);
-    // }).catch(e => {
-    //   console.error(e.message || e);
-    // })
-    setImgList(AlbumDatas)
+    fetch('https://api.imgur.com/3/account/me/albums/', {
+      mode: 'cors',
+      headers: {
+        Authorization: token,
+      }
+    }).then(oPromise => {
+      if (oPromise.ok) {
+        return oPromise.json();
+      }
+      throw new Error(oPromise);
+    }).then(oData => {
+      setImgList(oData.data);
+    }).catch(e => {
+      console.error(e.message || e);
+    })
+    // setImgList(AlbumDatas)
   }
 
   function renderImgs() {
