@@ -38,7 +38,7 @@ function OAuth(props) {
     }
     dispatchAdd(oTokenInfos);
     // redirect to the next page
-    props.history.push('/create-post');
+    props.history.push('/select-timestamp');
   }, []);
 
   return (
