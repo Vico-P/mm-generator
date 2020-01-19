@@ -12,3 +12,9 @@ export const deleteItemTimestamp = itemId => ({
   type: DELETE_ITEM_TIMESTAMP,
   itemId,
 });
+
+export const MODIFY_TIMESTAMP = 'MODIFY_TIMESTAMP';
+export const modifyTimestamp = data => ({
+  type: MODIFY_TIMESTAMP,
+  data,
+});

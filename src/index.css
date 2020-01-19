@@ -95,7 +95,8 @@ a {
 }
 /* end buttons */
 /* inputs */
-input.form-control {
+input.form-control,
+textarea.form-control  {
   padding: 0.25rem 0.5rem;
   border: 1px solid var(--main-color);
   border-radius: 3px;
@@ -104,7 +105,8 @@ input.form-control {
   transition: var(--transition);
 }
 
-input.form-control:focus, input.form-control:hover {
+input.form-control:focus, input.form-control:hover,
+textarea.form-control:focus, textarea.form-control:hover {
   box-shadow: var(--btn-shadow);
   transition: var(--transition);
 }

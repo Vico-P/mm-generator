@@ -10,11 +10,10 @@ import PostGenerator from '../Modules/PostGeneratorModule/PostGenerator';
 const MainRoute = () => (
   <main>
     <Switch>
-      <Route path="/create-post" />
-      <Route path="/select-items" component={SelectItems}/>
-      <Route path="/select-timestamp" component={SelectTimestamp} />
-      <Route path="/oauth2" component={OAuth} />
       <Route exact path="/create-post" component={PostGenerator} />
+      <Route exact path="/select-items" component={SelectItems}/>
+      <Route exact path="/select-timestamp" component={SelectTimestamp} />
+      <Route exact path="/oauth2" component={OAuth} />
       <Route path="/" component={App} />
     </Switch>
   </main>

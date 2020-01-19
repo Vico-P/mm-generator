@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { Link } from 'react-router-dom';
-import { addItemToTimestamp, deleteItemTimestamp } from '../../Actions/SelectedItemsTimestamp';
+import { addItem, deleteItem } from '../../Actions/SelectedItems';
 import SelectionBlock from './SelectionBlock';
 import './SelectTimestamp.css';
 
@@ -9,9 +9,9 @@ function SelectItems() {
   // store variables
   const dispatch = useDispatch();
   const username = useSelector(state => state.user.username);
-  const timestampList = useSelector(state => state.items.timestamp);
-  const dispatchAdd = (data) => dispatch(addItemToTimestamp(data));
-  const dispatchDelete = (id) => dispatch(deleteItemTimestamp(id));
+  const list = useSelector(state => state.items.list);
+  const dispatchAdd = (data) => dispatch(addItem(data));
+  const dispatchDelete = (id) => dispatch(deleteItem(id));
   // state variables
   const [sMode, setMode] = useState('img');
 
@@ -33,7 +33,7 @@ function SelectItems() {
           >Display albums</button>
         </div>
         <SelectionBlock
-          storeList={timestampList}
+          storeList={list}
           deleteFunc={dispatchDelete}
           addFunc={dispatchAdd}
           mode={sMode}

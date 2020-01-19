@@ -31,15 +31,8 @@ function SelectionBlock(props) {
     //   }
     //   throw new Error(oPromise);
     // }).then(oData => {
-    //   const imgs = oData.data.map(data => {
-    //     const { id, link, name } = data;
-    //     return {
-    //       link,
-    //       name,
-    //       id,
-    //     }
-    //   });
-    //   setImgList(imgs);
+    //   console.log(oData.data);
+    //   setImgList(oData.data);
     // }).catch(e => {
     //   console.error(e.message || e);
     // });
