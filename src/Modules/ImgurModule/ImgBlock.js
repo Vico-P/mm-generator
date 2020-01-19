@@ -1,20 +1,18 @@
-import React, { useState } from 'react';
-import { useSelector, useDispatch } from 'react-redux';
-import SelectionBlock from './SelectionBlock';
+import React from 'react';
 import './SelectTimestamp.css';
-import { addItemToTimestamp, deleteUserInfos } from '../../Actions/SelectedItemsTimestamp';
 
+/**
+ * @todo: Changer la maniere de faire le isSelect et pousser l index dans un tableau
+ * separer dans le store, et faire passer isSelect par les props pour eviter de
+ * parcourir le tableau d objects
+ */
 function ImgBlock(props) {
   // store variables
-  const dispatch = useDispatch();
-  const timestampList = useSelector(state => state.items.timestamp);
-  const dispatchAdd = (data) => dispatch(addItemToTimestamp(data));
-  const dispatchDelete = (id) => dispatch(deleteUserInfos(id));
 
   // enregistrer le resultat pour affichage
   function isSelected() {
     let itemIsSelected = false;
-    timestampList.forEach(element => {
+    props.storeList.forEach(element => {
       if (element.id === props.img.id) {
         itemIsSelected = true;
       }
@@ -26,8 +24,8 @@ function ImgBlock(props) {
     <div 
       onClick={
         (!isSelected()) ?
-          () => dispatchAdd(props.img)
-          : () => dispatchDelete(props.img.id)
+          () => props.addFunc(props.img)
+          : () => props.deleteFunc(props.img.id)
       }
       className={`img-block ${isSelected() ? 'selected' : '' }`}>
       <img src={props.img.link} alt={props.img.name} />

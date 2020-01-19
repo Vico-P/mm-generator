@@ -32,6 +32,11 @@
     border: 2px solid var(--main-color);
 }
 
+.album-block.selected {
+    color: var(--main-color);
+    text-decoration: underline;
+}
+
 .btn-container {
     margin: 2vh 0;
 }
