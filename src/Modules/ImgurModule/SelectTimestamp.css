@@ -1,0 +1,46 @@
+.img-container{
+    padding: 1vh 1vw;
+    max-width: 100vw;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    height: 80vh;
+    overflow: auto;
+}
+
+.img-block, .album-block {
+    cursor: pointer;
+    padding: 5px;
+    flex: 1;
+}
+
+.img-block:hover, .album-block:hover, .img-block.selected {
+    color: var(--main-color);
+}
+
+.img-block:hover img {
+    box-shadow: var(--btn-shadow);
+}
+
+.img-block img{
+    border: 2px solid transparent;
+    max-width: 250px;
+    max-height: 250px;
+}
+
+.img-block.selected img{
+    border: 2px solid var(--main-color);
+}
+
+.album-block.selected {
+    color: var(--main-color);
+    text-decoration: underline;
+}
+
+.btn-container {
+    margin: 2vh 0;
+}
+
+.mr-2 {
+    margin-right: 2rem;
+}

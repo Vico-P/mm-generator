@@ -1,30 +1,30 @@
 import React, { useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { Link } from 'react-router-dom';
-import { addItem, deleteItem } from '../../Actions/SelectedItems';
+import { addItemToTimestamp, deleteItemTimestamp } from '../../Actions/SelectedItemsTimestamp';
 import SelectionBlock from './SelectionBlock';
 import './SelectTimestamp.css';
 
-function SelectTimestamp() {
+function SelectItems() {
   // store variables
   const dispatch = useDispatch();
   const username = useSelector(state => state.user.username);
-  const list = useSelector(state => state.items.list);
-  const dispatchAdd = (data) => dispatch(addItem(data));
-  const dispatchDelete = (id) => dispatch(deleteItem(id));
+  const timestampList = useSelector(state => state.items.timestamp);
+  const dispatchAdd = (data) => dispatch(addItemToTimestamp(data));
+  const dispatchDelete = (id) => dispatch(deleteItemTimestamp(id));
   // state variables
   const [sMode, setMode] = useState('img');
 
   return (
     <div className="select-timestamp">
       Hello {username || ''}!
-      <br />Choose your timestamp.
+      <br />Choose your items.
       <div>
         <div className="btn-container">
           <button
             className="btn btn-secondary mr-2"
             disabled={sMode === 'img'}
-            onClick={ () => setMode('img')}
+            onClick={() => setMode('img')}
           >Display Images</button>
           <button
             className="btn btn-secondary"
@@ -33,15 +33,15 @@ function SelectTimestamp() {
           >Display albums</button>
         </div>
         <SelectionBlock
-          storeList={list}
+          storeList={timestampList}
           deleteFunc={dispatchDelete}
           addFunc={dispatchAdd}
           mode={sMode}
         />
       </div>
-      <Link to="/select-items">Select your items</Link>
+      <Link to="/create-post">Generate your post</Link>
     </div>
   );
 }
 
-export default SelectTimestamp;
+export default SelectItems;
