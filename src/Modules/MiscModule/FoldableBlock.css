@@ -1,0 +1,41 @@
+.foldable-block{
+    padding: 0 1vw;
+}
+
+.f-block-sign {
+    position: absolute;
+    top: 0;
+    right: 0;
+    line-height: 29px;
+    font-size: 2rem;
+    padding-right: 1rem;
+}
+
+.f-block-sign.minus::before {
+    content: '-';
+}
+
+.f-block-sign.plus::after {
+    content: '+';
+}
+
+.f-block-header {
+    position: sticky;
+    top: 0;
+    background-color: var(--main-dark);
+    color: var(--main-light);
+    padding: 0.5rem 0;
+    cursor: pointer;
+    border-radius: 3px 3px 0px 0px;
+    user-select: none;
+}
+
+.f-block-body {
+    padding: 0.5rem;
+    border: 1px solid var(--main-dark);
+    border-top: none;
+}
+
+.f-block-hide {
+    display: none;
+}

@@ -81,7 +81,6 @@ function PostGenerator() {
 
   return (
     <div>
-      <p>Timestamps (prefer to link a unique image or use an album)</p>
       {generateTimeStamp()}
       {displayStore()}
       <button
