@@ -14,9 +14,9 @@
 
     /* transitions and animations  */
     /* transition timing*/
-    --tt: 100ms;
+    --tt: 150ms;
     /* my default transition */
-    --transition: color var(--tt), background-color var(--tt), border var(--tt), box-shadow var(--tt);
+    --transition: color var(--tt), background-color var(--tt), border var(--tt), box-shadow var(--tt), filter var(--tt);
 }
 
 html, body {

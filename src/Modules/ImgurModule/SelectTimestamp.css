@@ -20,16 +20,22 @@
 
 .img-block:hover img {
     box-shadow: var(--btn-shadow);
+    filter: none;
+    transition: var(--transition);
 }
 
 .img-block img{
+    filter: grayscale(1);
     border: 2px solid transparent;
     max-width: 250px;
     max-height: 250px;
+    transition: var(--transition);
 }
 
 .img-block.selected img{
     border: 2px solid var(--main-color);
+    filter: none;
+    transition: var(--transition);
 }
 
 .album-block.selected {
