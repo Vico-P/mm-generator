@@ -1,103 +1,29 @@
-import React, { useState } from 'react';
-// import { useSelector } from 'react-redux';
+import React, { useState, useEffect } from 'react';
+import { useSelector } from 'react-redux';
 import PostTimestamp from './PostTimestamp';
+import PostImages from './PostImages';
 import './PostGenerator.css';
 
 function PostGenerator() {
-  const [arrayPost, setArrayPost] = useState({
-    urlTimestamp: '',
-    urlName: '',
-    images: [],
-    message: '',
-  });
+  const timestampList = useSelector(state => state.items.timestamp);
+  const imagesList = useSelector(state => state.items.lines);
+  const [toGenerate, setToGenerate] = useState({ message: ""});
 
-  const rows = [];
-
-  const handleChange = (newValue, field, index) => {
-    if (index || index === 0) {
-      let newArray = [...arrayPost.images];
-      newArray[index][field] = newValue;
-      arrayPost.images = newArray;
-    } else {
-      arrayPost[field] = newValue;
-    }
-    setArrayPost(Object.assign({}, arrayPost));
-  };
-
-  const addNewLine = () => {
-    arrayPost.images = [...arrayPost.images, {
-      index: arrayPost.images.length,
-      name: '',
-      imgUrl: '',
-      imgName: '',
-      desc: '',
-      price: 12
-    }];
-    setArrayPost(Object.assign({}, arrayPost));
-  };
-
-  arrayPost.images.forEach((row) => {
-    rows.push(
-      <tr key={row.index}>
-        <td>
-          <div>Name</div>
-          <input
-            className="form-control"
-            value={row.name} onChange={(event) => { handleChange(event.target.value, "name", row.index) }} type="text" />
-        </td>
-        <td>
-          <div>Img</div>
-          <input
-            className="form-control"
-            value={row.imgUrl}
-            onChange={(event) => { handleChange(event.target.value, "imgUrl", row.index) }}
-            type="text" placeholder="Put image's url here"
-          />
-          <input
-            className="form-control"
-            value={row.imgName} onChange={(event) => { handleChange(event.target.value, "imgName", row.index) }} type="text" placeholder="Image's name" />
-        </td>
-        <td>
-          <div>Desc</div>
-          <textarea
-            className="form-control"
-            value={row.desc} onChange={(event) => { handleChange(event.target.value, "desc", row.index) }}
-            rows="5" cols="33" placeholder="Quick description of product...">
-          </textarea>
-        </td>
-        <td>
-          <div>Price</div>
-          <input 
-            className="form-control"
-          value={row.price} onChange={(event) => { handleChange(event.target.value, "price", row.index) }} type="number" min="0" />
-        </td>
-      </tr>
-    );
-  });
   return (
     <div>
       <PostTimestamp />
-      <table>
-        <tbody>
-          {rows}
-        </tbody>
-      </table>
+      <PostImages />
       <div>
         <textarea
           className="form-control"
-          value={arrayPost.message}
-          onChange={(event) => { handleChange(event.target.value, "message") }}
+          value={toGenerate.message}
+          onChange={(event) => { setToGenerate(Object.assign({}, toGenerate, {message: event.target.value})) }}
           rows="5" cols="33" placeholder="If you have more to say..."
         />
       </div>
       <button
-        className="btn btn-primary"
-        onClick={() => { addNewLine() }}>
-        Add line
-      </button>
-      <button
         className="btn btn-secondary"
-        onClick={() => console.log(arrayPost)}>
+        onClick={() => console.log(Object.assign({}, toGenerate, {imagesList, timestampList}))}>
         See model content
       </button>
     </div>
