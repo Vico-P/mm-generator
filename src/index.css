@@ -6,11 +6,14 @@
     --light-highlight: white;
     --dark-highlight: black;
     --shadow-color: rgba(0, 0, 0, 0.75);
+    --light-shadow-color: #aAa;
 
     /* shadows */
     --btn-shadow: 2px 1px 5px 0px var(--shadow-color);
+    --block-shadow: 0px 0px 5px 0px var(--light-shadow-color);
     --inner-shadow: inset 2px 2px 5px 0px var(--shadow-color);
-    --navbar-shadow: 0px 2px 5px 2px var(--shadow-color);
+    --navbar-shadow: 0px 2px 5px 2px var(--light-shadow-color);
+    --inner-light-shadow: inset 2px 2px 5px 0px var(--light-shadow-color);
 
     /* transitions and animations  */
     /* transition timing*/
