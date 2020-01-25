@@ -1,14 +1,7 @@
 import React from 'react';
 import './SelectTimestamp.css';
 
-/**
- * @todo: Changer la maniere de faire le isSelect et pousser l index dans un tableau
- * separer dans le store, et faire passer isSelect par les props pour eviter de
- * parcourir le tableau d objects
- */
 function ImgBlock(props) {
-  // store variables
-
   // enregistrer le resultat pour affichage
   function isSelected() {
     let itemIsSelected = false;

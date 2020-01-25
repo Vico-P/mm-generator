@@ -5,9 +5,6 @@ import './App.css';
 function App() {
   const clientId = '124f7cd261a8d9a';
 
-  /**
-   * @todo: Change the second link depending on Vico's page name
-   */
   return (
     <div className="App">
       <h1>Welcome to MM-Generator</h1>
