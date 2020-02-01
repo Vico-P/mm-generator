@@ -8,26 +8,30 @@ import './PostGenerator.css';
 function PostGenerator() {
   const timestampList = useSelector(state => state.items.timestamp);
   const imagesList = useSelector(state => state.items.lines);
-  const [toGenerate, setToGenerate] = useState({ message: ""});
+  const [toGenerate, setToGenerate] = useState({ messageTimestamp: "", messageImage: ""});
   const [templateGenerated, setTemplateGenerated] = useState([]);
 
   const generatePost = () => {
     let result = [];
-    console.log(timestampList);
     timestampList.forEach((timestamp, index) => {
-      result.push("[" + timestamp.name + "](" + timestamp.link + ")\n");
+      if (timestamp.is_album) {
+        result.push("[" + timestamp.title + "](" + timestamp.link + ")\n");
+      } else {
+        result.push("[" + timestamp.name + "](" + timestamp.link + ")\n");
+      }
       if (index === timestampList.length - 1) {
         result.push('\n');
       }
     });
+    result.push("" + toGenerate.messageTimestamp + "\n\n");
     if (imagesList.length > 0) {
       result.push("|name|timestamp|description|price\n");
       result.push("|-|-|-|-\n");
       imagesList.forEach((image) => {
-        result.push("|" + image.name + "| [" + image.imgName + "] (" + image.imgUrl + ")|" + image.desc + "|" + image.price + "\n");
+          result.push("|" + image.name + "| [" + image.imgName + "] (" + image.imgUrl + ")|" + image.desc + "|" + image.price + "\n");
       });
     }
-    result.push("" + toGenerate.message + "\n");
+    result.push("\n\n" + toGenerate.messageImage + "\n");
     setTemplateGenerated(result);
   }
 
@@ -38,6 +42,14 @@ function PostGenerator() {
         blockTitle={`Timestamp selection ${timestampList.length} item(s) selected`}
         bodyContent={ <PostTimestamp /> }
       />
+      <div>
+        <textarea
+          className="form-control"
+          value={toGenerate.messageTimestamp}
+          onChange={(event) => { setToGenerate(Object.assign({}, toGenerate, {messageTimestamp: event.target.value})) }}
+          rows="5" cols="33" placeholder="If you have more to say..."
+        />
+      </div>
       <FoldableBlock
         blockTitle={`Images selection ${imagesList.length} item(s) selected`}
         bodyContent={ <PostImages /> }
@@ -45,8 +57,8 @@ function PostGenerator() {
       <div>
         <textarea
           className="form-control"
-          value={toGenerate.message}
-          onChange={(event) => { setToGenerate(Object.assign({}, toGenerate, {message: event.target.value})) }}
+          value={toGenerate.messageImage}
+          onChange={(event) => { setToGenerate(Object.assign({}, toGenerate, {messageImage: event.target.value})) }}
           rows="5" cols="33" placeholder="If you have more to say..."
         />
       </div>

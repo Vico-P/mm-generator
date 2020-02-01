@@ -13,14 +13,20 @@ function PostImages () {
 
   imagesList.forEach((imageInfo, index) => {
     if (index >= linesList.length) {
-      dispatchAdd({
+      const imageObject = {
         id: imageInfo.id,
         name: '',
         imgUrl: imageInfo.link,
-        imgName: imageInfo.name,
+        imgName: '',
         desc: '',
-        price: 12
-      })
+        price: ''
+      };
+      if (imageInfo.is_album) {
+        imageObject.imgName = imageInfo.title
+      } else {
+        imageObject.imgName = imageInfo.name;
+      }
+      dispatchAdd(imageObject);
     }
   });
 
@@ -57,7 +63,7 @@ function PostImages () {
           <div>Price</div>
           <input
             className="form-control"
-          value={row.price} onChange={(event) => { dispatchModify(event.target.value, "price", index) }} type="number" min="0" />
+          value={row.price} onChange={(event) => { dispatchModify(event.target.value, "price", index) }} min="0" />
         </td>
       </tr>
     );
@@ -77,7 +83,7 @@ function PostImages () {
           imgUrl: '',
           imgName: '',
           desc: '',
-          price: 12
+          price: ''
         }); }}>
         Add line
       </button>
