@@ -13,17 +13,20 @@ function PostGenerator() {
   const generatePost = () => {
     let result = [];
     console.log(timestampList);
-    timestampList.forEach((timestamp) => {
-      result.push("[" + timestamp.name + "](" + timestamp.link + ")");
+    timestampList.forEach((timestamp, index) => {
+      result.push("[" + timestamp.name + "](" + timestamp.link + ")\n");
+      if (index === timestampList.length - 1) {
+        result.push('\n');
+      }
     });
     if (imagesList.length > 0) {
-      result.push("|name|timestamp|description|price");
-      result.push("|-|-|-|-");
+      result.push("|name|timestamp|description|price\n");
+      result.push("|-|-|-|-\n");
       imagesList.forEach((image) => {
-        result.push("|" + image.name + "| [" + image.imgName + "] (" + image.imgUrl + ")|" + image.desc + "|" + image.price + "");
+        result.push("|" + image.name + "| [" + image.imgName + "] (" + image.imgUrl + ")|" + image.desc + "|" + image.price + "\n");
       });
     }
-    result.push("" + toGenerate.message + "");
+    result.push("" + toGenerate.message + "\n");
     setTemplateGenerated(result);
   }
 
@@ -49,13 +52,14 @@ function PostGenerator() {
         onClick={() => {generatePost()}}>
         Generate post template
       </button>
-      {templateGenerated.map((row, index) => {
-        return (
-          <div key={index}>
-            {row}
-          </div>
-        );
-      })}
+      <div>
+        <textarea
+          value={templateGenerated.join('')}
+          rows="5"
+          cols="33"
+          className="form-control">
+        </textarea>
+      </div>
     </div>
   );
 }
