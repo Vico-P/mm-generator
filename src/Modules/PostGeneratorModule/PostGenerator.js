@@ -2,112 +2,72 @@ import React, { useState } from 'react';
 import { useSelector } from 'react-redux';
 import PostTimestamp from './PostTimestamp';
 import FoldableBlock from '../MiscModule/FoldableBlock';
+import PostImages from './PostImages';
 import './PostGenerator.css';
 
 function PostGenerator() {
-  const timestampListLength = useSelector(state => state.items.timestamp.length);
+  const timestampList = useSelector(state => state.items.timestamp);
+  const imagesList = useSelector(state => state.items.lines);
+  const [toGenerate, setToGenerate] = useState({ message: ""});
+  const [templateGenerated, setTemplateGenerated] = useState([]);
 
-  const [arrayPost, setArrayPost] = useState({
-    urlTimestamp: '',
-    urlName: '',
-    images: [],
-    message: '',
-  });
-
-  const rows = [];
-
-  const handleChange = (newValue, field, index) => {
-    if (index || index === 0) {
-      let newArray = [...arrayPost.images];
-      newArray[index][field] = newValue;
-      arrayPost.images = newArray;
-    } else {
-      arrayPost[field] = newValue;
+  const generatePost = () => {
+    let result = [];
+    console.log(timestampList);
+    timestampList.forEach((timestamp, index) => {
+      result.push("[" + timestamp.name + "](" + timestamp.link + ")\n");
+      if (index === timestampList.length - 1) {
+        result.push('\n');
+      }
+    });
+    if (imagesList.length > 0) {
+      result.push("|name|timestamp|description|price\n");
+      result.push("|-|-|-|-\n");
+      imagesList.forEach((image) => {
+        result.push("|" + image.name + "| [" + image.imgName + "] (" + image.imgUrl + ")|" + image.desc + "|" + image.price + "\n");
+      });
     }
-    setArrayPost(Object.assign({}, arrayPost));
-  };
-
-  const addNewLine = () => {
-    arrayPost.images = [...arrayPost.images, {
-      index: arrayPost.images.length,
-      name: '',
-      imgUrl: '',
-      imgName: '',
-      desc: '',
-      price: 12
-    }];
-    setArrayPost(Object.assign({}, arrayPost));
-  };
-
-  arrayPost.images.forEach((row) => {
-    rows.push(
-      <tr key={row.index}>
-        <td>
-          <div>Name</div>
-          <input
-            className="form-control"
-            value={row.name} onChange={(event) => { handleChange(event.target.value, "name", row.index) }} type="text" />
-        </td>
-        <td>
-          <div>Img</div>
-          <input
-            className="form-control"
-            value={row.imgUrl}
-            onChange={(event) => { handleChange(event.target.value, "imgUrl", row.index) }}
-            type="text" placeholder="Put image's url here"
-          />
-          <input
-            className="form-control"
-            value={row.imgName} onChange={(event) => { handleChange(event.target.value, "imgName", row.index) }} type="text" placeholder="Image's name" />
-        </td>
-        <td>
-          <div>Desc</div>
-          <textarea
-            className="form-control"
-            value={row.desc} onChange={(event) => { handleChange(event.target.value, "desc", row.index) }}
-            rows="5" cols="33" placeholder="Quick description of product...">
-          </textarea>
-        </td>
-        <td>
-          <div>Price</div>
-          <input
-            className="form-control"
-            value={row.price} onChange={(event) => { handleChange(event.target.value, "price", row.index) }} type="number" min="0" />
-        </td>
-      </tr>
-    );
-  });
+    result.push("" + toGenerate.message + "\n");
+    setTemplateGenerated(result);
+  }
 
   return (
     <div>
       <h1>Generate your post</h1>
       <FoldableBlock
-        blockTitle={`Timestamp selection ${timestampListLength} item(s) selected`}
+        blockTitle={`Timestamp selection ${timestampList.length} item(s) selected`}
         bodyContent={ <PostTimestamp /> }
       />
-      <table>
-        <tbody>
-          {rows}
-        </tbody>
-      </table>
+      <FoldableBlock
+        blockTitle={`Images selection ${imagesList.length} item(s) selected`}
+        bodyContent={ <PostImages /> }
+      />
       <div>
         <textarea
           className="form-control"
-          value={arrayPost.message}
-          onChange={(event) => { handleChange(event.target.value, "message") }}
+          value={toGenerate.message}
+          onChange={(event) => { setToGenerate(Object.assign({}, toGenerate, {message: event.target.value})) }}
           rows="5" cols="33" placeholder="If you have more to say..."
         />
       </div>
       <button
-        className="btn btn-primary"
-        onClick={() => { addNewLine() }}>
-        Add line
+        className="btn btn-secondary"
+        onClick={() => console.log(Object.assign({}, toGenerate, {imagesList, timestampList}))}>
+        See model content
       </button>
       <button
         className="btn btn-secondary"
-        onClick={() => console.log(arrayPost)}>
-        See model content
+        onClick={() => {generatePost()}}>
+        Generate post template
       </button>
+      <div>
+        <textarea
+          value={templateGenerated.join('')}
+          rows="5"
+          cols="33"
+          className="form-control">
+        </textarea>
+      </div>
     </div>
   );
 }

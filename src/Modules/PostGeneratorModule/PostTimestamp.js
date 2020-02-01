@@ -4,7 +4,7 @@ import { Link } from 'react-router-dom';
 import { addItemToTimestamp, deleteItemTimestamp, modifyTimestamp } from '../../Actions/SelectedItemsTimestamp';
 
 
-function PostGenerator() {
+    function PostTimestamp() {
   const [idGenerator, setIdGenerator] = useState(new Date().getTime())
   const timestampList = useSelector(state => state.items.timestamp);
   const dispatch = useDispatch();
@@ -18,7 +18,7 @@ function PostGenerator() {
 
   function generateTimeStamp() {
     const timeStampsElements = [];
-  
+
     timestampList.forEach((timestamp, index) => {
       timeStampsElements.push(
         <div className="timestamp-input-block" key={index}>
@@ -81,4 +81,4 @@ function PostGenerator() {
   );
 }
 
-export default PostGenerator;
+export default PostTimestamp;
