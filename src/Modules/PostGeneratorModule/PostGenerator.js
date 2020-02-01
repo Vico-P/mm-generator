@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { useSelector } from 'react-redux';
 import PostTimestamp from './PostTimestamp';
+import FoldableBlock from '../MiscModule/FoldableBlock';
 import PostImages from './PostImages';
 import './PostGenerator.css';
 
@@ -32,8 +33,15 @@ function PostGenerator() {
 
   return (
     <div>
-      <PostTimestamp />
-      <PostImages />
+      <h1>Generate your post</h1>
+      <FoldableBlock
+        blockTitle={`Timestamp selection ${timestampList.length} item(s) selected`}
+        bodyContent={ <PostTimestamp /> }
+      />
+      <FoldableBlock
+        blockTitle={`Images selection ${imagesList.length} item(s) selected`}
+        bodyContent={ <PostImages /> }
+      />
       <div>
         <textarea
           className="form-control"

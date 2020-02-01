@@ -1,7 +1,31 @@
+.timestamp-container {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-evenly;
+}
+
 .timestamp-input-block{
     margin: 1rem;
+    box-shadow: var(--block-shadow);
+    flex: 1;
+    max-width: 300px;
+}
+
+.timestamp-input-block .btn{
+    margin: 1rem;
+}
+
+.timestamp-input-block p {
+    margin-bottom: 2px;
 }
 
 .timestamp-input-block input {
     margin: 0 0.5vw;
+}
+
+@media (max-width: 575.98px) { 
+    .timestamp-input-block{
+        margin: 1rem 0;
+        min-width: 90vw;
+    }
 }
