@@ -1,9 +1,12 @@
 import React, { useState } from 'react';
-// import { useSelector } from 'react-redux';
+import { useSelector } from 'react-redux';
 import PostTimestamp from './PostTimestamp';
+import FoldableBlock from '../MiscModule/FoldableBlock';
 import './PostGenerator.css';
 
 function PostGenerator() {
+  const timestampListLength = useSelector(state => state.items.timestamp.length);
+
   const [arrayPost, setArrayPost] = useState({
     urlTimestamp: '',
     urlName: '',
@@ -67,16 +70,21 @@ function PostGenerator() {
         </td>
         <td>
           <div>Price</div>
-          <input 
+          <input
             className="form-control"
-          value={row.price} onChange={(event) => { handleChange(event.target.value, "price", row.index) }} type="number" min="0" />
+            value={row.price} onChange={(event) => { handleChange(event.target.value, "price", row.index) }} type="number" min="0" />
         </td>
       </tr>
     );
   });
+
   return (
     <div>
-      <PostTimestamp />
+      <h1>Generate your post</h1>
+      <FoldableBlock
+        blockTitle={`Timestamp selection ${timestampListLength} item(s) selected`}
+        bodyContent={ <PostTimestamp /> }
+      />
       <table>
         <tbody>
           {rows}

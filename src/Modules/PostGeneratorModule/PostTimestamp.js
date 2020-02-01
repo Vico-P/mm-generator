@@ -22,21 +22,7 @@ function PostGenerator() {
     timestampList.forEach((timestamp, index) => {
       timeStampsElements.push(
         <div className="timestamp-input-block" key={index}>
-          <span>Timestamp global</span>
-          <input
-            type="text" className="form-control"
-            defaultValue={timestamp.name || timestamp.title}
-            onChange={
-              (event) => {
-                handleChange({
-                  newValue: event.target.value,
-                  index,
-                  elemToModify: (timestamp.name) ? "name" : "title"
-                })
-              }
-            }
-          />
-          <span>Name for url</span>
+          <p>Image url <a target="_blank" href={timestamp.link}>Preview</a></p>
           <input
             type="text" className="form-control"
             defaultValue={timestamp.link}
@@ -50,28 +36,29 @@ function PostGenerator() {
               }
             }
           />
-          <span
+          <p>Alias for url (can be empty)</p>
+          <input
+            type="text" className="form-control"
+            defaultValue={timestamp.name || timestamp.title}
+            onChange={
+              (event) => {
+                handleChange({
+                  newValue: event.target.value,
+                  index,
+                  elemToModify: (timestamp.name) ? "name" : "title"
+                })
+              }
+            }
+          />
+          <div
             className="btn btn-secondary"
             onClick={() => dispatchDelete(timestamp.id)}
-          >Delete line</span>
+          >Delete line</div>
         </div>
       );
     });
 
     return timeStampsElements;
-  }
-
-  function displayStore() {
-    const test = [];
-    timestampList.forEach((timestamp, index) => {
-      test.push(
-        <div className="timestamp-input-block" key={`display-${index}`}>
-          <span>{`id: ${timestamp.id} name: ${timestamp.title || timestamp.name} link: ${timestamp.link}`}</span>
-        </div>
-      );
-    });
-
-    return test;
   }
 
   function addNewItem() {
@@ -81,14 +68,15 @@ function PostGenerator() {
 
   return (
     <div>
-      <p>Timestamps (prefer to link a unique image or use an album)</p>
-      {generateTimeStamp()}
-      {displayStore()}
+      <div className="timestamp-container">
+        {generateTimeStamp()}
+      </div>
       <button
         className="btn btn-primary"
         onClick={() => addNewItem()}
-      >Add timestamp</button>
-      <Link to="/">Back to login</Link>
+      >
+        Add timestamp
+      </button>
     </div>
   );
 }
